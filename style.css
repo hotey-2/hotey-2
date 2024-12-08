@@ -1,0 +1,51 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
+
+/* General styling for the body */
+body {
+    background-color: white;
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    margin: 0;
+    background-image: url('1.jpg'); /* Background for the entire page */
+    background-size: cover; /* Ensure the background image covers the screen */
+    background-position: center center; /* Center the background image */
+    overflow: hidden; /* Prevent any overflow */
+    font-family: 'Zeyada', cursive; /* Apply Zeyada font to the body */
+    text-align: center; /* Center text */
+}
+
+/* Paper styles */
+.paper {
+    padding: 50px;
+    border: none; /* No border */
+    position: absolute;
+    background-image: url('1.jpg'); /* Background image for the paper */
+    background-size: 150%; /* Zoomed in by 150% */
+    background-position: center; /* Center the background image */
+    width: 200px; 
+    height: 200px; 
+    z-index: 1;
+    cursor: grab;
+    transition: transform 0.2s ease-out; /* Smooth dragging transition */
+    box-shadow: 1px 15px 28px 0px rgba(0, 0, 0, 0.5); /* Light shadow for depth */
+    display: flex;
+    justify-content: center; /* Horizontally center content inside the paper */
+    align-items: center; /* Vertically center content inside the paper */
+    text-align: center; /* Ensure the text inside the paper is centered */
+}
+
+/* Optional: Add shadow to give the paper a "floating" effect */
+.paper:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Shadow on hover */
+}
+
+/* Apply Zeyada font to <p> elements */
+p {
+    font-family: 'Zeyada', cursive; /* Correct font-family */
+    margin: 0; /* Remove default margin */
+    font-size: 2rem; /* Adjust text size */
+    color: black; /* Set the text color to black */
+}

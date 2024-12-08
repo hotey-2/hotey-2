@@ -1,5 +1,3 @@
-
-
 let highestZ = 1;
 
 class Paper {
@@ -21,59 +19,80 @@ class Paper {
         const imageUrl = paper.getAttribute('data-image');
         paper.style.backgroundImage = `url('${imageUrl}')`; // Apply the background image for each paper
 
-        // 'mousedown' event to start dragging
-        paper.addEventListener('mousedown', (e) => {
+        // Handle mouse events for desktop
+        const startDrag = (e) => {
             this.holdingPaper = true;
             paper.style.zIndex = highestZ; // Bring paper to the front
             highestZ += 1;
 
-            if (e.button === 0) { // Left mouse button
-                this.prevMouseX = e.clientX; // Store the initial mouse position
-                this.prevMouseY = e.clientY;
+            if (e.type === 'mousedown') { // Left mouse button
+                this.prevMouseX = this.mouseX;
+                this.prevMouseY = this.mouseY;
+            } else if (e.type === 'touchstart') { // Touch start on mobile
+                this.prevMouseX = e.touches[0].clientX;
+                this.prevMouseY = e.touches[0].clientY;
             }
-        });
+        };
+
+        // 'mousedown' event to start dragging for mouse
+        paper.addEventListener('mousedown', startDrag);
+
+        // 'touchstart' event to start dragging for mobile
+        paper.addEventListener('touchstart', startDrag);
 
         // 'mousemove' event to drag the paper (now on window)
-        window.addEventListener('mousemove', (e) => {
+        const dragMove = (e) => {
             if (this.holdingPaper) {
-                // Get current mouse position
-                this.mouseX = e.clientX;
-                this.mouseY = e.clientY;
+                if (e.type === 'mousemove') {
+                    this.mouseX = e.clientX;
+                    this.mouseY = e.clientY;
+                } else if (e.type === 'touchmove') {
+                    this.mouseX = e.touches[0].clientX;
+                    this.mouseY = e.touches[0].clientY;
+                }
 
-                // Calculate the movement of the mouse
+                // Calculate the velocity and move the paper smoothly
                 this.velocityX = this.mouseX - this.prevMouseX;
                 this.velocityY = this.mouseY - this.prevMouseY;
 
-                // Update current paper position
                 this.currentPaperX += this.velocityX;
                 this.currentPaperY += this.velocityY;
 
-                // Apply friction to make the movement smoother (slow down the paper)
+                // Apply friction to make the movement smoother
                 this.velocityX *= this.friction;
                 this.velocityY *= this.friction;
 
-                // Apply velocity limit to prevent the paper from moving too fast
-                if (Math.abs(this.velocityX) > this.maxVelocity) {
-                    this.velocityX = this.maxVelocity * Math.sign(this.velocityX);
-                }
-                if (Math.abs(this.velocityY) > this.maxVelocity) {
-                    this.velocityY = this.maxVelocity * Math.sign(this.velocityY);
+                // Prevent papers from moving too quickly (maximum speed)
+                if (Math.abs(this.velocityX) < 0.1 && Math.abs(this.velocityY) < 0.1) {
+                    this.velocityX = 0;
+                    this.velocityY = 0;
                 }
 
                 // Apply the transformation to move the paper
                 paper.style.transform = `translateX(${this.currentPaperX}px) translateY(${this.currentPaperY}px)`;
 
-                // Update previous mouse position for next movement
+                // Update previous mouse position
                 this.prevMouseX = this.mouseX;
                 this.prevMouseY = this.mouseY;
             }
-        });
+        };
 
-        // 'mouseup' event to stop dragging
-        window.addEventListener('mouseup', () => {
+        // 'mousemove' event for desktop
+        window.addEventListener('mousemove', dragMove);
+
+        // 'touchmove' event for mobile
+        window.addEventListener('touchmove', dragMove);
+
+        // 'mouseup' event to stop dragging for desktop
+        const stopDrag = () => {
             this.holdingPaper = false; // Stop dragging when mouse is released
-            console.log('Mouse button is released');
-        });
+        };
+
+        // 'mouseup' event for desktop
+        window.addEventListener('mouseup', stopDrag);
+
+        // 'touchend' event to stop dragging for mobile
+        window.addEventListener('touchend', stopDrag);
     }
 }
 

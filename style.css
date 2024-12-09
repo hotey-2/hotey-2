@@ -1,4 +1,4 @@
-
+/* Import Zeyada font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
 
 /* General styling for the body */
@@ -22,7 +22,6 @@ body {
     padding: 50px;
     border: none; /* No border */
     position: absolute;
-    background-image: url('1.jpg'); /* Background image for the paper */
     background-size: 150%; /* Zoomed in by 150% */
     background-position: center; /* Center the background image */
     width: 200px; 
@@ -37,9 +36,9 @@ body {
     text-align: center; /* Ensure the text inside the paper is centered */
 }
 
-/* Optional: Add shadow to give the paper a "floating" effect on hover */
+/* Optional: Add shadow to give the paper a "floating" effect */
 .paper:hover {
-    box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.5); /* Shadow on hover */
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.5); /* Shadow on hover */
 }
 
 /* Apply Zeyada font to <p> elements */

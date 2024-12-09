@@ -1,39 +1,5 @@
 let highestZ = 1;
 
-// Array of image filenames for the background slideshow
-const backgroundImages = [
-    '1.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg'
-];
-
-// Set the initial background image
-let currentImageIndex = 0;
-const bodyElement = document.querySelector('body');
-
-// Preload all background images to avoid flash
-const preloadImages = () => {
-    backgroundImages.forEach((image) => {
-        const img = new Image();
-        img.src = image;
-    });
-};
-preloadImages(); // Call to preload images
-
-// Function to change the background image
-function changeBackgroundImage() {
-    // Update the background image of the body
-    bodyElement.style.backgroundImage = `url('${backgroundImages[currentImageIndex]}')`;
-    
-    // Move to the next image in the array, and loop back to the first image when reaching the end
-    currentImageIndex = (currentImageIndex + 1) % backgroundImages.length;
-}
-
-// Call the function immediately to set the first background
-changeBackgroundImage();
-
-// Set an interval to change the background image every 5 seconds
-setInterval(changeBackgroundImage, 5000);
-
-// Paper dragging logic
 class Paper {
     holdingPaper = false;
     prevMouseX = 0;
@@ -51,7 +17,7 @@ class Paper {
     init(paper) {
         // Dynamically set the background image from the data-image attribute
         const imageUrl = paper.getAttribute('data-image');
-        paper.style.backgroundImage = `url('${imageUrl}')`; // Apply the background image for each paper
+        paper.style.backgroundImage = url('${imageUrl}'); // Apply the background image for each paper
 
         // Handle mouse events for desktop
         const startDrag = (e) => {
@@ -103,7 +69,7 @@ class Paper {
                 }
 
                 // Apply the transformation to move the paper
-                paper.style.transform = `translateX(${this.currentPaperX}px) translateY(${this.currentPaperY}px)`;
+                paper.style.transform = translateX(${this.currentPaperX}px) translateY(${this.currentPaperY}px);
 
                 // Update previous mouse position
                 this.prevMouseX = this.mouseX;
@@ -115,7 +81,26 @@ class Paper {
         window.addEventListener('mousemove', dragMove);
 
         // 'touchmove' event for mobile
-        window.addEventListener('touchmove', drag
+        window.addEventListener('touchmove', dragMove);
 
-    
-   
+        // 'mouseup' event to stop dragging for desktop
+        const stopDrag = () => {
+            this.holdingPaper = false; // Stop dragging when mouse is released
+        };
+
+        // 'mouseup' event for desktop
+        window.addEventListener('mouseup', stopDrag);
+
+        // 'touchend' event to stop dragging for mobile
+        window.addEventListener('touchend', stopDrag);
+    }
+}
+
+// Select all the paper elements
+const papers = Array.from(document.querySelectorAll('.paper'));
+
+// Initialize each paper element with the Paper class
+papers.forEach(paper => {
+    const p = new Paper();
+    p.init(paper);
+});

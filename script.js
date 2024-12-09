@@ -1,3 +1,5 @@
+let highestZ = 1;
+
 // Array of image filenames for the background slideshow
 const backgroundImages = [
     '1.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg'
@@ -6,6 +8,15 @@ const backgroundImages = [
 // Set the initial background image
 let currentImageIndex = 0;
 const bodyElement = document.querySelector('body');
+
+// Preload all background images to avoid flash
+const preloadImages = () => {
+    backgroundImages.forEach((image) => {
+        const img = new Image();
+        img.src = image;
+    });
+};
+preloadImages(); // Call to preload images
 
 // Function to change the background image
 function changeBackgroundImage() {
@@ -23,8 +34,6 @@ changeBackgroundImage();
 setInterval(changeBackgroundImage, 5000);
 
 // Paper dragging logic
-let highestZ = 1;
-
 class Paper {
     holdingPaper = false;
     prevMouseX = 0;
@@ -106,28 +115,7 @@ class Paper {
         window.addEventListener('mousemove', dragMove);
 
         // 'touchmove' event for mobile
-        window.addEventListener('touchmove', dragMove);
+        window.addEventListener('touchmove', drag
 
-        // 'mouseup' event to stop dragging for desktop
-        const stopDrag = () => {
-            this.holdingPaper = false; // Stop dragging when mouse is released
-        };
-
-        // 'mouseup' event for desktop
-        window.addEventListener('mouseup', stopDrag);
-
-        // 'touchend' event to stop dragging for mobile
-        window.addEventListener('touchend', stopDrag);
-    }
-}
-
-// Select all the paper elements
-const papers = Array.from(document.querySelectorAll('.paper'));
-
-// Initialize each paper element with the Paper class
-papers.forEach(paper => {
-    const p = new Paper();
-    p.init(paper);
-});
-
-       
+    
+   

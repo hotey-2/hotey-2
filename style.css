@@ -1,4 +1,5 @@
- box-shadow: 0 0 @import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
 
 /* General styling for the body */
 body {
@@ -36,8 +37,9 @@ body {
     text-align: center; /* Ensure the text inside the paper is centered */
 }
 
-/* Optional: Add shadow to give the paper a "floating" effect */
-.paper:hover {20px rgba(0, 0, 0, 0.5); /* Shadow on hover */
+/* Optional: Add shadow to give the paper a "floating" effect on hover */
+.paper:hover {
+    box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.5); /* Shadow on hover */
 }
 
 /* Apply Zeyada font to <p> elements */
@@ -46,4 +48,4 @@ p {
     margin: 0; /* Remove default margin */
     font-size: 2rem; /* Adjust text size */
     color: black; /* Set the text color to black */
-} 
+}

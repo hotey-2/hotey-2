@@ -17,7 +17,7 @@ class Paper {
     init(paper) {
         // Dynamically set the background image from the data-image attribute
         const imageUrl = paper.getAttribute('data-image');
-        paper.style.backgroundImage = url('${imageUrl}'); // Apply the background image for each paper
+        paper.style.backgroundImage = `url('${imageUrl}')`; // Apply the background image for each paper
 
         // Handle mouse events for desktop
         const startDrag = (e) => {
@@ -69,7 +69,7 @@ class Paper {
                 }
 
                 // Apply the transformation to move the paper
-                paper.style.transform = translateX(${this.currentPaperX}px) translateY(${this.currentPaperY}px);
+                paper.style.transform = `translateX(${this.currentPaperX}px) translateY(${this.currentPaperY}px)`; // Use template literal here
 
                 // Update previous mouse position
                 this.prevMouseX = this.mouseX;

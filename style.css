@@ -1,3 +1,6 @@
+/* Import the font */
+@import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
+
 /* Apply the background transition for a smooth effect */
 body {
     background-color: white;
@@ -46,4 +49,3 @@ p {
     font-size: 2rem; /* Adjust text size */
     color: black; /* Set the text color to black */
 }
-

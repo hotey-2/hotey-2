@@ -1,3 +1,28 @@
+// Array of image filenames for the background slideshow
+const backgroundImages = [
+    '1.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg'
+];
+
+// Set the initial background image
+let currentImageIndex = 0;
+const bodyElement = document.querySelector('body');
+
+// Function to change the background image
+function changeBackgroundImage() {
+    // Update the background image of the body
+    bodyElement.style.backgroundImage = `url('${backgroundImages[currentImageIndex]}')`;
+    
+    // Move to the next image in the array, and loop back to the first image when reaching the end
+    currentImageIndex = (currentImageIndex + 1) % backgroundImages.length;
+}
+
+// Call the function immediately to set the first background
+changeBackgroundImage();
+
+// Set an interval to change the background image every 5 seconds
+setInterval(changeBackgroundImage, 5000);
+
+// Paper dragging logic
 let highestZ = 1;
 
 class Paper {
@@ -104,3 +129,5 @@ papers.forEach(paper => {
     const p = new Paper();
     p.init(paper);
 });
+
+       
